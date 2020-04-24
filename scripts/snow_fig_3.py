@@ -104,10 +104,10 @@ cb_ax = fig.add_axes([0.92, 0.25, 0.02, 0.5])
 cbar = fig.colorbar(contour_a, ax=axs[:, 1], cax=cb_ax, ticks=cbar_ticks, extend='both')
 
 # reset axes positions (pain!)
-ax_a.set_position(pos=[0.001, 0.498, 0.45, 0.5])
-ax_b.set_position(pos=[0.451, 0.498, 0.45, 0.5])
-ax_c.set_position(pos=[0.001, 0.001, 0.45, 0.5])
-ax_d.set_position(pos=[0.451, 0.001, 0.45, 0.5])
+ax_a.set_position(pos=[0.001, 0.500, 0.45, 0.5])
+ax_b.set_position(pos=[0.451, 0.500, 0.45, 0.5])
+ax_c.set_position(pos=[0.001, 0.005, 0.45, 0.5])
+ax_d.set_position(pos=[0.451, 0.005, 0.45, 0.5])
 
 # axis text indicators
 ax_a.text(0.02, 0.94, 'a.', fontsize=24, transform=ax_a.transAxes)
