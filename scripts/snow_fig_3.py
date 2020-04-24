@@ -1,11 +1,9 @@
 from pathlib import Path
-
 import cartopy.crs as ccrs
 import geopandas as gpd
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import xarray as xr
-from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
 plt.rcParams['font.weight'] = 'bold'
 plt.rcParams['font.family'] = 'Arial'
@@ -25,12 +23,12 @@ cmap = mpl.colors.LinearSegmentedColormap.from_list(
     name='fig3',
     colors=[
         (x[0]/255, x[1]/255, x[2]/255) for x in [
-            (255,  47,  34), (255, 113,  57), (239, 162,   0),
-            (255, 211,  66), (255, 255, 156), (255, 255, 255),
-            (255, 255, 255), (255, 255, 255), (198, 255, 222),
-            (140, 211, 255), ( 57, 195, 255), (  0, 150, 189),
-            (  0,  95, 206)
-        ]
+            (188,  15,   1), (255,  70,  53), (255, 142,  67),
+            (252, 192,  34), (255, 247, 111), (255, 255, 255),
+            #(255, 255, 255), (255, 255, 255), 
+            (176, 255, 114),
+            (152, 246, 227), (104, 187, 255), ( 39, 140, 254),
+            (  0,  70, 199), (  9,  16, 158)]
     ],
     N=256
 )
@@ -45,6 +43,9 @@ with xr.open_dataset(data_root / 'ARC_SDP_anomaly_c.nc') as ds:
     data_c = ds['sdp']
 with xr.open_dataset(data_root / 'ARC_SDP_anomaly_d.nc') as ds:
     data_d = ds['sdp']
+
+for data in [data_a, data_b, data_c, data_d]:
+    data = data.where(data != 0)
 
 # load vector data
 land = gpd.read_file(data_root / 'vector' / 'land.gpkg').to_crs(fig_crs.proj4_init)
@@ -107,5 +108,11 @@ ax_a.set_position(pos=[0.001, 0.498, 0.45, 0.5])
 ax_b.set_position(pos=[0.451, 0.498, 0.45, 0.5])
 ax_c.set_position(pos=[0.001, 0.001, 0.45, 0.5])
 ax_d.set_position(pos=[0.451, 0.001, 0.45, 0.5])
+
+# axis text indicators
+ax_a.text(0.02, 0.94, 'a.', fontsize=24, transform=ax_a.transAxes)
+ax_b.text(0.02, 0.94, 'b.', fontsize=24, transform=ax_b.transAxes)
+ax_c.text(0.02, 0.94, 'c.', fontsize=24, transform=ax_c.transAxes)
+ax_d.text(0.02, 0.94, 'd.', fontsize=24, transform=ax_d.transAxes)
 
 plt.show()
