@@ -75,11 +75,17 @@ current['june_sce_ea'].plot(
 )
 
 # plot means
-df.iloc[:-1][['may_sce_na', 'may_sce_ea']].rolling(5, center=True).mean().plot(
+sub_mean = df.iloc[:-1]
+sub_mean = sub_mean.set_index(
+    pd.date_range(f'{sub_mean.index.min()}-01-01', f'{sub_mean.index.max()}-01-01', freq='YS')
+)
+rolling_may = sub_mean[['may_sce_na', 'may_sce_ea']].rolling(5, min_periods=0, closed='both', center=True).mean()
+rolling_may.set_index(rolling_may.index.year).plot(
     ax=ax_may, solid_joinstyle='round', legend=False, 
     zorder=1, linewidth=3, color=['black', 'red']
 )
-df.iloc[:-1][['june_sce_na', 'june_sce_ea']].rolling(5, center=True).mean().plot(
+rolling_june = sub_mean[['june_sce_na', 'june_sce_ea']].rolling(5, min_periods=0, closed='both', center=True).mean()
+rolling_june.set_index(rolling_june.index.year).plot(
     ax=ax_june, solid_joinstyle='round', legend=False, 
     zorder=1, linewidth=3, color=['black', 'red']
 )
@@ -99,5 +105,10 @@ ax_june.set_ylabel('June SCE Anomaly')
 na_marker = Line2D([0], [0], marker='o', color='None', markersize=10, markerfacecolor='black', label='North American Arctic')
 ea_marker = Line2D([0], [0], marker='o', color='None', markersize=10, markerfacecolor='red', label='Eurasian Arctic')
 ax_may.legend(handles=[na_marker, ea_marker], loc=3, fontsize=12, frameon=False)
+
+# axis text indicators
+#ax_may.text(0.02, 0.92, 'a.', fontsize=20, transform=ax_may.transAxes)
+ax_may.text(-0.15, 0.97, 'a.', fontsize=24, transform=ax_may.transAxes)
+ax_june.text(-0.15, 0.97, 'b.', fontsize=24, transform=ax_june.transAxes)
 
 plt.savefig(data_root.parent / 'figures' / 'ARC_Snow_Fig1-python.png', dpi=dpi)
