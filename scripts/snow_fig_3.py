@@ -115,4 +115,5 @@ ax_b.text(0.02, 0.94, 'b.', fontsize=24, transform=ax_b.transAxes)
 ax_c.text(0.02, 0.94, 'c.', fontsize=24, transform=ax_c.transAxes)
 ax_d.text(0.02, 0.94, 'd.', fontsize=24, transform=ax_d.transAxes)
 
-plt.show()
+# save
+plt.savefig(data_root.parent / 'figures' / 'ARC_Snow_Fig3-python.png', dpi=dpi)
