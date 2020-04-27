@@ -4,6 +4,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from matplotlib.lines import Line2D
 
+#### FLAG TO ASSIGN OUTPUT FIGURE FORMAT
+FIG_FMT = 'PDF' # or 'PNG' or 'TIF'
+
 plt.rcParams['font.weight'] = 'bold'
 plt.rcParams['font.family'] = 'Arial'
 plt.rcParams['axes.labelsize'] = 16
@@ -111,4 +114,11 @@ ea_marker = Line2D([0], [0], marker='o', color='None', markersize=10, markerface
 ax.legend(handles=[na_marker, ea_marker], loc=2, fontsize=14, frameon=False)
 
 # save
-plt.savefig(data_root.parent / 'figures' / 'ARC_Snow_Fig4-python.png', dpi=dpi)
+if FIG_FMT.upper() == 'PDF':
+    plt.savefig(data_root.parent / 'figures' / 'ARC_Snow_Fig4-python.pdf', dpi=dpi)
+elif FIG_FMT.upper() == 'PNG':
+    plt.savefig(data_root.parent / 'figures' / 'ARC_Snow_Fig4-python.png', dpi=dpi)
+elif FIG_FMT.upper() == 'TIF':
+    plt.savefig(data_root.parent / 'figures' / 'ARC_Snow_Fig4-python.tif', dpi=dpi)
+else:
+    print('Unrecognized figure format: "%s" (must be PNG or PDF)' % FIG_FMT)

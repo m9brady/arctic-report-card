@@ -139,3 +139,6 @@ dmypy.json
 *.code-workspace
 
 scratch
+
+*.tif
+*.pdf

@@ -7,6 +7,9 @@ import matplotlib.pyplot as plt
 import xarray as xr
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
+#### FLAG TO ASSIGN OUTPUT FIGURE FORMAT
+FIG_FMT = 'PDF' # or 'PNG' or 'TIF'
+
 plt.rcParams['font.weight'] = 'bold'
 plt.rcParams['font.family'] = 'Arial'
 
@@ -116,4 +119,11 @@ ax_a.text(0.02, 0.94, 'a.', fontsize=30, transform=ax_a.transAxes)
 ax_b.text(0.02, 0.94, 'b.', fontsize=30, transform=ax_b.transAxes)
 
 # save
-plt.savefig(data_root.parent / 'figures' / 'ARC_Snow_Fig2-python.png', dpi=dpi)
+if FIG_FMT.upper() == 'PDF':
+    plt.savefig(data_root.parent / 'figures' / 'ARC_Snow_Fig2-python.pdf', dpi=dpi)
+elif FIG_FMT.upper() == 'PNG':
+    plt.savefig(data_root.parent / 'figures' / 'ARC_Snow_Fig2-python.png', dpi=dpi)
+elif FIG_FMT.upper() == 'TIF':
+    plt.savefig(data_root.parent / 'figures' / 'ARC_Snow_Fig2-python.tif', dpi=dpi)
+else:
+    print('Unrecognized figure format: "%s" (must be PNG or PDF)' % FIG_FMT)

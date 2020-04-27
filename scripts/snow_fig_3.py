@@ -5,6 +5,9 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import xarray as xr
 
+#### FLAG TO ASSIGN OUTPUT FIGURE FORMAT
+FIG_FMT = 'PDF' # or 'PNG' or 'TIF'
+
 plt.rcParams['font.weight'] = 'bold'
 plt.rcParams['font.family'] = 'Arial'
 plt.rcParams['axes.labelsize'] = 16
@@ -115,4 +118,11 @@ ax_c.text(0.02, 0.94, 'c.', fontsize=24, transform=ax_c.transAxes)
 ax_d.text(0.02, 0.94, 'd.', fontsize=24, transform=ax_d.transAxes)
 
 # save
-plt.savefig(data_root.parent / 'figures' / 'ARC_Snow_Fig3-python.png', dpi=dpi)
+if FIG_FMT.upper() == 'PDF':
+    plt.savefig(data_root.parent / 'figures' / 'ARC_Snow_Fig3-python.pdf', dpi=dpi)
+elif FIG_FMT.upper() == 'PNG':
+    plt.savefig(data_root.parent / 'figures' / 'ARC_Snow_Fig3-python.png', dpi=dpi)
+elif FIG_FMT.upper() == 'TIF':
+    plt.savefig(data_root.parent / 'figures' / 'ARC_Snow_Fig3-python.tif', dpi=dpi)
+else:
+    print('Unrecognized figure format: "%s" (must be PNG or PDF)' % FIG_FMT)

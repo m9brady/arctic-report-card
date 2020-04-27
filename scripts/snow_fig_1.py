@@ -4,6 +4,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from matplotlib.lines import Line2D
 
+#### FLAG TO ASSIGN OUTPUT FIGURE FORMAT
+FIG_FMT = 'PDF' # or 'PNG' or 'TIF'
+
 plt.rcParams['font.weight'] = 'bold'
 plt.rcParams['font.family'] = 'Arial'
 plt.rcParams['axes.labelsize'] = 16
@@ -111,4 +114,12 @@ ax_may.legend(handles=[na_marker, ea_marker], loc=3, fontsize=12, frameon=False)
 ax_may.text(-0.15, 0.97, 'a.', fontsize=24, transform=ax_may.transAxes)
 ax_june.text(-0.15, 0.97, 'b.', fontsize=24, transform=ax_june.transAxes)
 
-plt.savefig(data_root.parent / 'figures' / 'ARC_Snow_Fig1-python.png', dpi=dpi)
+# save
+if FIG_FMT.upper() == 'PDF':
+    plt.savefig(data_root.parent / 'figures' / 'ARC_Snow_Fig1-python.pdf', dpi=dpi)
+elif FIG_FMT.upper() == 'PNG':
+    plt.savefig(data_root.parent / 'figures' / 'ARC_Snow_Fig1-python.png', dpi=dpi)
+elif FIG_FMT.upper() == 'TIF':
+    plt.savefig(data_root.parent / 'figures' / 'ARC_Snow_Fig1-python.tif', dpi=dpi)
+else:
+    print('Unrecognized figure format: "%s" (must be PNG or PDF)' % FIG_FMT)
